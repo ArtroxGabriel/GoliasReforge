@@ -1,8 +1,8 @@
 package containers
 
 import (
-	"TrabalhosEDAvancada/src/utils"
 	"cmp"
+	"github.com/ArtroxGabriel/GoliasReforge/src/utils"
 	"slices"
 )
 

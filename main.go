@@ -1,8 +1,8 @@
 package main
 
 import (
-	rbt "TrabalhosEDAvancada/src/tree/redBlackTree"
 	"fmt"
+	rbt "github.com/ArtroxGabriel/GoliasReforge/src/tree/redBlackTree"
 )
 
 func main() {
