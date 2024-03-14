@@ -2,25 +2,26 @@ package main
 
 import (
 	"fmt"
+	bt "github.com/ArtroxGabriel/GoliasReforge/src/tree/binaryTree"
 	rbt "github.com/ArtroxGabriel/GoliasReforge/src/tree/redBlackTree"
+	"math/rand"
+	"time"
 )
 
 func main() {
 	fmt.Println("Red-Black Tree")
 
-	tree := rbt.New[int, string]()
+	rbtTree := rbt.New[int, string]()
+	binaryTree := bt.New[int, string]()
 
-	tree.Put(5, "e")
-	tree.Put(6, "f")
-	tree.Put(7, "g")
-	tree.Put(3, "c")
-	tree.Put(4, "d")
-	tree.Put(1, "x")
-	tree.Put(2, "b")
-	tree.Put(1, "a")
+	rand.Seed(time.Now().UnixNano()) // Seed the random number generator
 
-	algo := tree.Values()
-	for _, a := range algo {
-		fmt.Printf("%v\t", a)
+	for i := 1; i <= 20; i++ {
+		randomInt := rand.Intn(100) + 1 // Generate a random integer between 1 and 100
+		rbtTree.Put(randomInt, fmt.Sprintf("value%d", randomInt))
+		binaryTree.Insert(randomInt, fmt.Sprintf("value%d", randomInt))
 	}
+
+	fmt.Println(rbtTree)
+	fmt.Println(binaryTree)
 }

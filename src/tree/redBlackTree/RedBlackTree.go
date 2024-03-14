@@ -2,6 +2,7 @@ package redBlackTree
 
 import (
 	"cmp"
+	"fmt"
 	"github.com/ArtroxGabriel/GoliasReforge/src/utils"
 )
 
@@ -32,7 +33,6 @@ func New[K cmp.Ordered, V any]() *Tree[K, V] {
 func (tree *Tree[K, V]) Put(key K, value V) {
 	var insertedNode *Node[K, V]
 	if tree.Root == nil {
-		tree.Comparator(key, key)
 		tree.Root = &Node[K, V]{Key: key, Value: value, Color: RED}
 		insertedNode = tree.Root
 	} else {
@@ -399,4 +399,44 @@ func nodeColor[K comparable, V any](node *Node[K, V]) color {
 		return BLACK
 	}
 	return node.Color
+}
+
+func (tree *Tree[K, V]) String() string {
+	str := "RedBlackTree\n"
+	if !tree.Empty() {
+		output(tree.Root, "", true, &str)
+	}
+	return str
+}
+
+func (node *Node[K, V]) String() string {
+	return fmt.Sprintf("%v", node.Key)
+}
+
+func output[K comparable, V any](node *Node[K, V], prefix string, isTail bool, str *string) {
+	if node.Right != nil {
+		newPrefix := prefix
+		if isTail {
+			newPrefix += "│   "
+		} else {
+			newPrefix += "    "
+		}
+		output(node.Right, newPrefix, false, str)
+	}
+	*str += prefix
+	if isTail {
+		*str += "└── "
+	} else {
+		*str += "┌── "
+	}
+	*str += node.String() + "\n"
+	if node.Left != nil {
+		newPrefix := prefix
+		if isTail {
+			newPrefix += "    "
+		} else {
+			newPrefix += "│   "
+		}
+		output(node.Left, newPrefix, true, str)
+	}
 }
