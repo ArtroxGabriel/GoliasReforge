@@ -2,26 +2,24 @@ package main
 
 import (
 	"fmt"
-	bt "github.com/ArtroxGabriel/GoliasReforge/src/tree/binaryTree"
-	rbt "github.com/ArtroxGabriel/GoliasReforge/src/tree/redBlackTree"
-	"math/rand"
-	"time"
+	"github.com/ArtroxGabriel/GoliasReforge/src/queue"
 )
 
 func main() {
-	fmt.Println("Red-Black Tree")
+	fila := queue.New[int]()
 
-	rbtTree := rbt.New[int, string]()
-	binaryTree := bt.New[int, string]()
+	fmt.Println(fila.IsEmpty())
 
-	rand.Seed(time.Now().UnixNano()) // Seed the random number generator
+	fila.Enqueue(1)
+	fila.Enqueue(2)
+	fila.Enqueue(3)
+	fila.Enqueue(4)
 
-	for i := 1; i <= 20; i++ {
-		randomInt := rand.Intn(100) + 1 // Generate a random integer between 1 and 100
-		rbtTree.Put(randomInt, fmt.Sprintf("value%d", randomInt))
-		binaryTree.Insert(randomInt, fmt.Sprintf("value%d", randomInt))
-	}
+	fmt.Println(fila.Size())
 
-	fmt.Println(rbtTree)
-	fmt.Println(binaryTree)
+	fmt.Println(fila.Dequeue())
+	fmt.Println(fila.Dequeue())
+	fmt.Println(fila.Dequeue())
+	fmt.Println(fila.Dequeue())
+
 }

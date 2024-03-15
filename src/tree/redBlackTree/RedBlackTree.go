@@ -30,7 +30,7 @@ func New[K cmp.Ordered, V any]() *Tree[K, V] {
 	return &Tree[K, V]{Comparator: cmp.Compare[K]}
 }
 
-func (tree *Tree[K, V]) Put(key K, value V) {
+func (tree *Tree[K, V]) Insert(key K, value V) {
 	var insertedNode *Node[K, V]
 	if tree.Root == nil {
 		tree.Root = &Node[K, V]{Key: key, Value: value, Color: RED}
