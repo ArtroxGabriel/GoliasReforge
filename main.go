@@ -2,24 +2,25 @@ package main
 
 import (
 	"fmt"
-	"github.com/ArtroxGabriel/GoliasReforge/src/queue"
+	"github.com/ArtroxGabriel/GoliasReforge/src/tree/redBlackTree"
+	"github.com/ArtroxGabriel/GoliasReforge/src/tree/redBlackTreeGab"
 )
 
 func main() {
-	fila := queue.New[int]()
+	tree := redBlackTreeGab.New()
+	rbt := redBlackTree.New[int, int]()
 
-	fmt.Println(fila.IsEmpty())
+	redBlackTreeGab.Insert(tree, 1)
+	rbt.Insert(1, 1)
+	redBlackTreeGab.Insert(tree, 2)
+	rbt.Insert(2, 3)
+	redBlackTreeGab.Insert(tree, 3)
+	rbt.Insert(3, 3)
+	redBlackTreeGab.Insert(tree, 4)
+	rbt.Insert(4, 4)
+	redBlackTreeGab.Insert(tree, 5)
+	rbt.Insert(5, 5)
 
-	fila.Enqueue(1)
-	fila.Enqueue(2)
-	fila.Enqueue(3)
-	fila.Enqueue(4)
-
-	fmt.Println(fila.Size())
-
-	fmt.Println(fila.Dequeue())
-	fmt.Println(fila.Dequeue())
-	fmt.Println(fila.Dequeue())
-	fmt.Println(fila.Dequeue())
-
+	fmt.Println(rbt)
+	fmt.Println("\n", tree.Root.Right.Right.Key)
 }
