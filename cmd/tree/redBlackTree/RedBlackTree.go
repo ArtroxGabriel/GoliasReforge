@@ -3,7 +3,7 @@ package redBlackTree
 import (
 	"cmp"
 	"fmt"
-	"github.com/ArtroxGabriel/GoliasReforge/src/utils"
+	"github.com/ArtroxGabriel/GoliasReforge/cmd/utils"
 )
 
 type color bool
@@ -410,7 +410,14 @@ func (tree *Tree[K, V]) String() string {
 }
 
 func (node *Node[K, V]) String() string {
-	return fmt.Sprintf("%v", node.Key)
+	var color string
+	if !node.Color {
+		color = "R"
+	} else {
+		color = "N"
+	}
+
+	return fmt.Sprintf("%v%s", node.Key, color)
 }
 
 func output[K comparable, V any](node *Node[K, V], prefix string, isTail bool, str *string) {

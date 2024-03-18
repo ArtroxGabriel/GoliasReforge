@@ -2,25 +2,31 @@ package main
 
 import (
 	"fmt"
-	"github.com/ArtroxGabriel/GoliasReforge/src/tree/redBlackTree"
-	"github.com/ArtroxGabriel/GoliasReforge/src/tree/redBlackTreeGab"
+	"github.com/ArtroxGabriel/GoliasReforge/cmd/tree/redBlackTree"
+	"github.com/ArtroxGabriel/GoliasReforge/cmd/tree/redBlackTreeGab"
 )
 
 func main() {
 	tree := redBlackTreeGab.New()
 	rbt := redBlackTree.New[int, int]()
 
-	redBlackTreeGab.Insert(tree, 1)
-	rbt.Insert(1, 1)
-	redBlackTreeGab.Insert(tree, 2)
-	rbt.Insert(2, 3)
-	redBlackTreeGab.Insert(tree, 3)
-	rbt.Insert(3, 3)
-	redBlackTreeGab.Insert(tree, 4)
-	rbt.Insert(4, 4)
-	redBlackTreeGab.Insert(tree, 5)
-	rbt.Insert(5, 5)
+	baseInput := []int{1, 2, 3, 4, 5, 6, 7, 8}
 
-	fmt.Println(rbt)
-	fmt.Println("\n", tree.Root.Right.Right.Key)
+	for _, input := range baseInput {
+		redBlackTreeGab.Insert(tree, input)
+		rbt.Insert(input, input)
+
+	}
+
+	redBlackTreeGab.InOrder(tree, tree.Root)
+
+	redBlackTreeGab.Remove(tree, 7)
+	aqui := redBlackTreeGab.Search(tree, 6)
+
+	fmt.Println()
+	fmt.Printf("%d%v\n", aqui.Key, aqui.Color)
+	fmt.Printf("%d%v", aqui.Right.Key, aqui.Right.Color)
+	println()
+	redBlackTreeGab.InOrder(tree, tree.Root)
+
 }

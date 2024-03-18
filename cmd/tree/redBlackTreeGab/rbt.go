@@ -115,30 +115,34 @@ func fixInsert(rbt *Rbt, z *Node) {
 }
 
 func Insert(T *Rbt, key int) {
-	insertedNode, raiz, pai := &Node{Key: key, Color: RED}, T.Root, T.Null
+	raiz, pai := T.Root, T.Null
 
 	for raiz != T.Null {
 		pai = raiz
-		if key <= raiz.Key {
+		if key < raiz.Key {
 			raiz = raiz.Left
 		} else {
 			raiz = raiz.Right
 		}
 	}
 
-	insertedNode.Parent = pai
-
-	if pai == T.Null {
-		T.Root = insertedNode
-	} else if insertedNode.Key <= pai.Key {
-		pai.Left = insertedNode
-	} else {
-		pai.Right = insertedNode
+	novoNo := &Node{
+		Key:    key,
+		Color:  RED,
+		Left:   T.Null,
+		Right:  T.Null,
+		Parent: pai,
 	}
 
-	insertedNode.Left = T.Null
-	insertedNode.Right = T.Null
-	fixInsert(T, insertedNode)
+	if pai == T.Null {
+		T.Root = novoNo
+	} else if novoNo.Key < pai.Key {
+		pai.Left = novoNo
+	} else {
+		pai.Right = novoNo
+	}
+
+	fixInsert(T, novoNo)
 }
 
 // FIM Insert
@@ -168,7 +172,7 @@ func fixRemove(T *Rbt, z *Node) {
 				rotateLeft(T, z.Parent)
 				w = z.Parent.Right
 			}
-			if w.Left.Color == BLACK && w.Right.Color == BLACK {
+			if w.Left.Color == w.Right.Color && w.Right.Color == BLACK {
 				w.Color = RED
 				z = z.Parent
 			} else if w.Right.Color == BLACK {
@@ -220,7 +224,12 @@ func sucessor(T *Rbt, node *Node) *Node {
 	return salva
 }
 
-func Remove(T *Rbt, z *Node) {
+func Remove(T *Rbt, zInt int) {
+	z := Search(T, zInt)
+	if z == nil || z == T.Null {
+		return
+	}
+
 	var x *Node
 	y := z
 	originalColor := y.Color
@@ -233,8 +242,7 @@ func Remove(T *Rbt, z *Node) {
 		transplat(T, z, x)
 	} else {
 		y = sucessor(T, z)
-		x = y.Right
-		originalColor = y.Color
+		x, originalColor = y.Right, y.Color
 		transplat(T, y, x)
 		y.Left = z.Left
 		z.Left.Parent = y
@@ -252,8 +260,16 @@ func Remove(T *Rbt, z *Node) {
 
 func InOrder(T *Rbt, node *Node) {
 	if node != T.Null {
+
+		var color string
+		if !node.Color {
+			color = "RED"
+		} else {
+			color = "BLACK"
+		}
+
 		InOrder(T, node.Left)
-		fmt.Println(node.Key)
+		fmt.Println("Value: ", node.Key, "Color: ", color)
 		InOrder(T, node.Right)
 	}
 }
